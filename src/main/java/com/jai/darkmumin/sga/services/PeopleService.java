@@ -17,4 +17,7 @@ public class PeopleService {
     public People obtainPeopleById(Long id) {
         return PeopleRepository.findById(id).get();
     }
+    public People savePeople(People person) {
+        return PeopleRepository.save(person);
+    }
 }
