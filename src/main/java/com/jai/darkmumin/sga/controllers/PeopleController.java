@@ -1,8 +1,7 @@
 package com.jai.darkmumin.sga.controllers;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,35 +16,36 @@ import org.springframework.web.bind.annotation.RestController;
 import com.jai.darkmumin.sga.models.People;
 import com.jai.darkmumin.sga.services.PeopleService;
 
-
 @RestController
 @RequestMapping ("/api/v1/people")
 public class PeopleController {
-    @Autowired
-    private PeopleService peoplesService;
+    private final PeopleService peopleService;
+    public PeopleController(PeopleService peopleService) {
+        this.peopleService = peopleService;
+    }
 
+    // Is the method CRUD for People
     @GetMapping
-    ResponseEntity <List<People>> getPeople() {
-        return new ResponseEntity<>(peoplesService.getPeople(), HttpStatus.OK);
+    ResponseEntity <Page<People>> getPeople(Pageable pageable) {
+        return new ResponseEntity<>(peopleService.getPeople(pageable), HttpStatus.OK);
     }
     @GetMapping("/{id}")
     ResponseEntity <People> obtainPeopleById(@PathVariable Long id) {
-        return new ResponseEntity<>(peoplesService.obtainPeopleById(id), HttpStatus.OK);
+        return new ResponseEntity<>(peopleService.obtainPeopleById(id), HttpStatus.OK);
     }
     @PostMapping
     ResponseEntity <People> savePeople(@RequestBody People person) {
-        peoplesService.savePeople(person);
+        peopleService.savePeople(person);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @DeleteMapping("/{id}")
     ResponseEntity <People> deletePeople(@PathVariable Long id) {
-        peoplesService.deletePeople(id);
+        peopleService.deletePeople(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping
     ResponseEntity <People> updatePeople(@RequestBody People person) {
-        peoplesService.updatePeople(person);
+        peopleService.updatePeople(person);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
 }

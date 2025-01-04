@@ -1,8 +1,7 @@
 package com.jai.darkmumin.sga.controllers;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,14 +19,15 @@ import com.jai.darkmumin.sga.services.CategoryService;
 @RestController
 @RequestMapping("/api/v1/category")
 public class CategoryController {
-    @Autowired
-    private CategoryService categoryService;
-    
-    @GetMapping
-    ResponseEntity <List<Category>> getCategory() {
-        return new ResponseEntity<>(categoryService.getCategory(), HttpStatus.OK);
+    private final CategoryService categoryService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
-
+    // Is the method CRUD for Category
+    @GetMapping
+    ResponseEntity <Page<Category>> getCategory(Pageable pageable) {
+        return new ResponseEntity<>(categoryService.getCategory(pageable), HttpStatus.OK);
+    }
     @GetMapping("/{id}")
     ResponseEntity <Category> obtainCategoryById(@PathVariable Long id) {
         return new ResponseEntity<>(categoryService.obtainCategoryById(id), HttpStatus.OK);
