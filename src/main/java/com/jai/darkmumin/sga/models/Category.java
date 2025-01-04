@@ -6,18 +6,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-
-public class People {
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
-    public long dni;
-    public String name;
-    public String lastName;
-    public String email;
-    public String phone;
-    public String address;
-    public String city;
-
+    public String description;
 }
-

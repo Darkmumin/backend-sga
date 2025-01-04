@@ -14,38 +14,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jai.darkmumin.sga.models.People;
-import com.jai.darkmumin.sga.services.PeopleService;
-
+import com.jai.darkmumin.sga.models.Category;
+import com.jai.darkmumin.sga.services.CategoryService;
 
 @RestController
-@RequestMapping ("/api/v1/people")
-public class PeopleController {
+@RequestMapping("/api/v1/category")
+public class CategoryController {
     @Autowired
-    private PeopleService peoplesService;
-
+    private CategoryService categoryService;
+    
     @GetMapping
-    ResponseEntity <List<People>> getPeople() {
-        return new ResponseEntity<>(peoplesService.getPeople(), HttpStatus.OK);
+    ResponseEntity <List<Category>> getCategory() {
+        return new ResponseEntity<>(categoryService.getCategory(), HttpStatus.OK);
     }
+
     @GetMapping("/{id}")
-    ResponseEntity <People> obtainPeopleById(@PathVariable Long id) {
-        return new ResponseEntity<>(peoplesService.obtainPeopleById(id), HttpStatus.OK);
+    ResponseEntity <Category> obtainCategoryById(@PathVariable Long id) {
+        return new ResponseEntity<>(categoryService.obtainCategoryById(id), HttpStatus.OK);
     }
     @PostMapping
-    ResponseEntity <People> savePeople(@RequestBody People person) {
-        peoplesService.savePeople(person);
+    ResponseEntity <Category> saveCategory(@RequestBody Category category) {
+        categoryService.saveCategory(category);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @DeleteMapping("/{id}")
-    ResponseEntity <People> deletePeople(@PathVariable Long id) {
-        peoplesService.deletePeople(id);
+    ResponseEntity <Category> deleteCategory(@PathVariable Long id) {
+        categoryService.deleteCategory(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping
-    ResponseEntity <People> updatePeople(@RequestBody People person) {
-        peoplesService.updatePeople(person);
+    ResponseEntity <Category> updateCategory(@RequestBody Category category) {
+        categoryService.updateCategory(category);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-    
+
 }
