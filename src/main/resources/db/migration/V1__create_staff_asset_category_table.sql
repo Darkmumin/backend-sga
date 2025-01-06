@@ -1,0 +1,28 @@
+CREATE TABLE public.staff (
+    id SERIAL UNIQUE NOT NULL,
+	dni INT PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+	last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+	phone VARCHAR(255) NOT NULL,
+	address VARCHAR(255) NOT NULL,
+	city VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE public.category (
+    id SERIAL PRIMARY KEY UNIQUE NOT NULL,
+    description VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE public.asset (
+    id SERIAL UNIQUE NOT NULL,	
+	inventory_code INT PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+	category_id INT REFERENCES category(id),
+    brand VARCHAR(255) NOT NULL,
+	model VARCHAR(255) NOT NULL,
+	serial_number VARCHAR(255) UNIQUE NOT NULL,
+	description VARCHAR(255) NOT NULL
+);
+
+

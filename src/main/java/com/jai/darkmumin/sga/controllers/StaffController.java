@@ -13,39 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jai.darkmumin.sga.models.People;
-import com.jai.darkmumin.sga.services.PeopleService;
+import com.jai.darkmumin.sga.models.Staff;
+import com.jai.darkmumin.sga.services.StaffService;
 
 @RestController
-@RequestMapping ("/api/v1/people")
-public class PeopleController {
-    private final PeopleService peopleService;
-    public PeopleController(PeopleService peopleService) {
-        this.peopleService = peopleService;
+@RequestMapping ("/api/v1/staff")
+public class StaffController {
+    private final StaffService staffService;
+    public StaffController(StaffService staffService) {
+        this.staffService = staffService;
     }
 
     // Is the method CRUD for People
     @GetMapping
-    ResponseEntity <Page<People>> getPeople(Pageable pageable) {
-        return new ResponseEntity<>(peopleService.getPeople(pageable), HttpStatus.OK);
+    ResponseEntity <Page<Staff>> getPeople(Pageable pageable) {
+        return new ResponseEntity<>(staffService.getPeople(pageable), HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    ResponseEntity <People> obtainPeopleById(@PathVariable Long id) {
-        return new ResponseEntity<>(peopleService.obtainPeopleById(id), HttpStatus.OK);
+    ResponseEntity <Staff> obtainPeopleById(@PathVariable Long id) {
+        return new ResponseEntity<>(staffService.obtainPeopleById(id), HttpStatus.OK);
     }
     @PostMapping
-    ResponseEntity <People> savePeople(@RequestBody People person) {
-        peopleService.savePeople(person);
+    ResponseEntity <Staff> savePeople(@RequestBody Staff person) {
+        staffService.savePeople(person);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     @DeleteMapping("/{id}")
-    ResponseEntity <People> deletePeople(@PathVariable Long id) {
-        peopleService.deletePeople(id);
+    ResponseEntity <Staff> deletePeople(@PathVariable Long id) {
+        staffService.deletePeople(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @PutMapping
-    ResponseEntity <People> updatePeople(@RequestBody People person) {
-        peopleService.updatePeople(person);
+    ResponseEntity <Staff> updatePeople(@RequestBody Staff person) {
+        staffService.updatePeople(person);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
