@@ -128,18 +128,6 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.flywaydb</groupId>
-				<artifactId>flyway-maven-plugin</artifactId>
-				<version>11.1.0</version>
-				<configuration>
-					<driver>org.postgresql.Driver</driver>
-					<url>jdbc:postgresql://10.40.111.55:5432/sga</url>
-					<user>postgres</user>
-					<password>Admin@9000</password>
-					<schemas>public</schemas>
-				</configuration>
-			</plugin>
 		</plugins>
 	</build>
 

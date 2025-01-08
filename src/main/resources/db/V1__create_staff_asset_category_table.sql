@@ -1,4 +1,4 @@
-CREATE TABLE public.staff (
+CREATE TABLE IF NOT EXISTS public.staff (
     id SERIAL UNIQUE NOT NULL,
 	dni INT PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
@@ -9,13 +9,13 @@ CREATE TABLE public.staff (
 	city VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE public.category (
+CREATE TABLE IF NOT EXISTS public.category (
     id SERIAL PRIMARY KEY UNIQUE NOT NULL,
-    description VARCHAR(255) NOT NULL
+    description VARCHAR(255) UNIQUE NOT NULL
 );
 
-CREATE TABLE public.asset (
-    id SERIAL UNIQUE NOT NULL,	
+CREATE TABLE IF NOT EXISTS public.asset (
+    id SERIAL UNIQUE NOT NULL,
 	inventory_code INT PRIMARY KEY NOT NULL,
     name VARCHAR(255) NOT NULL,
 	category_id INT REFERENCES category(id),
