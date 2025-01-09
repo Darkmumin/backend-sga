@@ -16,17 +16,17 @@ public class Staff {
     public long id;
     @Column(name = "dni", nullable = false, unique = true)
     public long dni;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = false)
     public String name;
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "lastName", nullable = false, unique = false)
     public String lastName;
     @Column(name = "email", nullable = false, unique = true)
     public String email;
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone", nullable = false, unique = false)
     public String phone;
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", nullable = false, unique = false)
     public String address;
-    @Column(name = "city", nullable = false)
+    @Column(name = "city", nullable = false, unique = false)
     public String city;    
 }
 

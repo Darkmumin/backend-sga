@@ -16,10 +16,10 @@ public class Asset {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long id;
     @Column(name = "inventoryCode", nullable = false, unique = false)
-    public long inventoryCode;
+    public String inventoryCode;
     @Column(name = "name", nullable = false, unique = false)
     public String name;
-    @Column(name = "categoryId", nullable = false, unique = true)
+    @Column(name = "categoryId", nullable = false, unique = false)
     public long categoryId;
     @Column(name = "brand", nullable = false, unique = false)
     public String brand;
@@ -29,8 +29,8 @@ public class Asset {
     public String serialNumber;
     @Column(name = "description", nullable = false, unique = false)
     public String description;
-    @Column(name = "status", nullable = false, unique = false)
-    public String status;
+    @Column(name = "assignmentState", nullable = false, unique = false)
+    public boolean assignmentState;
 
     @ManyToOne
     @JoinColumn(name = "categoryId", insertable = false, updatable = false)
