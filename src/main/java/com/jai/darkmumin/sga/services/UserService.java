@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +18,12 @@ import com.jai.darkmumin.sga.repository.UserRepository;
 
 @Service
 public class UserService implements UserDetailsService {
-    UserRepository userRepository;
-
+    @Autowired
+    private final UserRepository userRepository;
+    public UserService(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
+    
     public Page<User> getUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }

@@ -27,8 +27,8 @@ public class JwtUtils {
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
-    public String tokenGenerate(UserDetails userDetails) {
-        return tokenGenerate(new HashMap<>(), userDetails);
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(new HashMap<>(), userDetails);
     }
     public boolean validateToken(String token, UserDetails userDetails) {
         final String userName = extractUsername(token);
@@ -38,12 +38,11 @@ public class JwtUtils {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
-    private String tokenGenerate(Map<String, Object> claims, UserDetails userDetails) {
+    private String generateToken(Map<String, Object> claims, UserDetails userDetails) {
         return Jwts
             .builder()
             .claims(claims)
-            .subject(userDetails.getUsername())
-            .claim("sub", userDetails.getUsername()) // Set the subject using a claim
+            .subject(userDetails.getUsername())// Set the subject using a claim
             .issuedAt(new Date(System.currentTimeMillis()))
             .expiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 1)) // 1 hour
             .signWith(getSignature(), Jwts.SIG.HS256)

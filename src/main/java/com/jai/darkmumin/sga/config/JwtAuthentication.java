@@ -41,10 +41,10 @@ public class JwtAuthentication extends OncePerRequestFilter {
         }
         jwtToken = authorizationHeader.substring(7);
         user = jwtUtils.extractUsername(jwtToken);
-        User inputUser = userRepository.findByUsername(user);
+        User userInput = userRepository.findById(Long.parseLong(user)).get();
         
         if (StringUtils.isNotEmpty(user) && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails = userService.loadUserByUsername(inputUser.username);
+            UserDetails userDetails = userService.loadUserByUsername(userInput.username);
             if (jwtUtils.validateToken(jwtToken, userDetails)) {
                 SecurityContext context = SecurityContextHolder.createEmptyContext();
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
