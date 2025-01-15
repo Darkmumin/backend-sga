@@ -29,4 +29,5 @@ public class AssignmentDetail {
     @ManyToOne
     @JoinColumn(name = "assignmentId", insertable = false, updatable = false)
     private Assignment assignment;
+
 }
