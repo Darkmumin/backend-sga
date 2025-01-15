@@ -30,18 +30,27 @@ public class SecurityConfig {
 
     private final JwtAuthentication jwtAuthentication;
     private final UserService userService;
+    private static final String[] SWAGGER_WHITELIST = {
+        "/swagger-ui/**",
+        "/swagger-ui",
+        "/v3/api-docs/**",
+        "/swagger-resources/**",
+        "/api/auth/**",
+        "/api/test/**",
+        "/swagger-resources"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests (request -> request
+                .requestMatchers(SWAGGER_WHITELIST).permitAll()
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 .requestMatchers("/api/v1/**").authenticated()
                 .anyRequest().authenticated())
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthentication, UsernamePasswordAuthenticationFilter.class)
-            .csrf(AbstractHttpConfigurer::disable)
             .cors(Customizer.withDefaults());
         return http.build();
     }
@@ -68,7 +77,7 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.applyPermitDefaultValues();
-    
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
 

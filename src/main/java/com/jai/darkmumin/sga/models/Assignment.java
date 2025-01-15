@@ -42,5 +42,4 @@ public class Assignment {
     public List<AssignmentDetail> getAssignmentDetails() {
         return assignmentDetails;
     }
-    
 }
